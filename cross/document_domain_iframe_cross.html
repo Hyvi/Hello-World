@@ -1,0 +1,22 @@
+<html > 
+    <head> 
+        <meta http-equiv="content-Type" content="text/html;charset=utf-8" /> 
+        </head>
+
+
+<button onclick = "crossDomain();" > 开始跨域 </button> 
+
+<div id="ajax" > if success , then this will be replaced. </div> 
+
+<iframe src="http://php.gliese.com/cross/document_domain_iframe.html" id="iframe" style="display:none;" > </iframe> 
+<script type="text/javascript"> 
+    document.domain = "gliese.com";
+    function crossDomain() {
+        var iframe = document.getElementById("iframe").contentWindow.$;
+        iframe.get("http://php.gliese.com/php/document_domain_iframe.php",function(data){
+                document.getElementById("ajax").innerHTML = data;
+                });
+    }
+</script>
+
+</html>
