@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domainData>
+    <about>
+        This document is designed to be invoked cross-site
+    </about>
+    <fields>
+        <invocationHistory>  
+            And this XML document resides on another domain and has been invoked cross-site.  If this data is ever displayed, it is because it has emerged from DOM manipulations on responseXML following a cross-site invocation.
+        </invocationHistory>
+    </fields>
+</domainData>
