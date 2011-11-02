@@ -1,5 +1,5 @@
 
-    var url = 'http://php.dbank.com/php/simpleXSInvocation.php';
+    var url = 'http://php.gliese.com/php/simpleXSInvocation.php';
     var invocationHistoryText;
     var invocation = null;
     function callOtherDomain(){

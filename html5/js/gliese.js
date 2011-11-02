@@ -1,5 +1,9 @@
+var glieseLog = false;
+
 function receive(event,element) {
-    if(window.console) console.log(111);
+    if(window.console)  { 
+        console.log(111);
+    }
     alert(111);
     var data = event.dataTransfer.items;
     var i = 0;
@@ -15,49 +19,74 @@ function receive(event,element) {
 }
 var box = document.getElementById("box");
 
+/**
+ * How to determine presence of HTML5 drag'n'drop file upload API (like the one from FF3.6)
+ *
+ */
+if(window.console){
+    console.log(!!(window.File && window.FileList && window.FileReader));
+
+}
+/**
+ * webkit doesn't expose the DataTransfer object 
+ */
+if(window.DataTransfer !== undefined && "files" in DataTransfer.prototype) {
+   if(window.console) {
+       console.log(DataTransfer.prototype);
+       console.log("Your Browser supports HTML5 File upload API");
+   }
+
+}
 // init event handlers
 //
 //
-/**
-if(window.console) { console.log((window.addEventListener));
-        console.log(typeof(window.attachEvent));
+if(window.console) {
+    
+    console.log((window.addEventListener));
+    console.log(typeof(window.attachEvent));
 }
 
-*/
-if(typeof(window.addEventListener)  != "undefined") {
-box.addEventListener("dragenter",dragEnter,false);
-box.addEventListener("dragexit",dragExit,false);
-box.addEventListener("dragover",dragOver,false);
-box.addEventListener("drop",drop,false);
-}
 
 function dragEnter(evt) {
     evt.stopPropagation();
     evt.preventDefault();
+    if(window.console) { 
+        console.log("dragEnter");
+    }
 }
 function dragExit(evt) {
      evt.stopPropagation();
     evt.preventDefault();
+    if(window.console) { 
+        console.log("dragExit");
+    }
 
 }
 function dragOver(evt) {
-     evt.stopPropagation();
-    evt.preventDefault();
-
-
-}
-
-function drop (evt) {
     evt.stopPropagation();
     evt.preventDefault();
+    if(window.console && glieseLog)  { 
+        console.log("dragOver");
+    }
+    /**
+     *   called every about ten milleseconds
+     */
+    //if(window.console) console.log((new Date()).getTime());
 
-    var files = evt.dataTransfer.files;
-    var count = files.length;
 
-    // Only call the handler if 1 or more files was dropped.
-    if (count > 0)
-        handleFiles(files);
+
 }
+function handleReaderLoadEnd(evt) {
+  if(window.console){ 
+      console.log(evt.target.result);
+  }
+ // var img = document.getElementById("preview");
+  var img = new Image();
+  
+  img.src = evt.target.result;
+  box.appendChild(img);
+}
+
 
 function handleFiles(files){
 var file = files[0];
@@ -75,11 +104,22 @@ reader.readAsDataURL(file);
 }
 
 
-function handleReaderLoadEnd(evt) {
-  if(window.console) console.log(evt.target.result);
- // var img = document.getElementById("preview");
-    var img = new Image();
-  
-  img.src = evt.target.result;
-  box.appendChild(img);
+
+function drop (evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    var files = evt.dataTransfer.files;
+    var count = files.length;
+
+    // Only call the handler if 1 or more files was dropped.
+    if (count > 0){
+        handleFiles(files); 
+    }
+}
+if(typeof(window.addEventListener)  != "undefined") {
+box.addEventListener("dragenter",dragEnter,false);
+box.addEventListener("dragexit",dragExit,false);
+box.addEventListener("dragover",dragOver,false);
+box.addEventListener("drop",drop,false);
 }
