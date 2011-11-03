@@ -8,9 +8,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET")
 elseif($_SERVER['REQUEST_METHOD'] == "OPTIONS")
 {
     // Tell the Client we support invocations from arunranga.com and that this preflight holds good for only 20 days
-    if($_SERVER['HTTP_ORIGIN'] == "http://html5.dbank.com")
+    if($_SERVER['HTTP_ORIGIN'] == "http://html5.gliese.com")
     {
-    header('Access-Control-Allow-Origin: http://html5.dbank.com');
+    header('Access-Control-Allow-Origin: http://html5.gliese.com');
     header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
     header('Access-Control-Allow-Headers: X-PINGARUNER');
     header('Access-Control-Max-Age: 1728000');
@@ -31,7 +31,7 @@ elseif($_SERVER['REQUEST_METHOD'] == "POST")
 {
     /* Handle POST by first getting the XML POST blob, and then doing something to it, and then sending results to the client
     */
-    if($_SERVER['HTTP_ORIGIN'] == "http://html5.dbank.com")
+    if($_SERVER['HTTP_ORIGIN'] == "http://html5.gliese.com")
     {
             $postData = file_get_contents('php://input');
             $document = simplexml_load_string($postData);
@@ -41,7 +41,7 @@ elseif($_SERVER['REQUEST_METHOD'] == "POST")
             $ping = $_SERVER['HTTP_X_PINGARUNER'];
            
                        
-            header('Access-Control-Allow-Origin: http://html5.dbank.com');
+            header('Access-Control-Allow-Origin: http://html5.gliese.com');
             //header('Content-Type: text/plain');
             header('Content-Type: application/xml');
             echo file_get_contents("xmldata/simpleXSInvocation.xml") ;// some string response after processing

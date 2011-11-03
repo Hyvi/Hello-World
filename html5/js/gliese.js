@@ -1,4 +1,5 @@
 var glieseLog = false;
+_callback = null;
 
 function receive(event,element) {
     if(window.console)  { 
@@ -89,17 +90,18 @@ function handleReaderLoadEnd(evt) {
 
 
 function handleFiles(files){
-var file = files[0];
- 
-document.getElementById("droplabel").innerHTML = "Processing " + file.name;
- 
-var reader = new FileReader();
- 
-// init the reader event handlers
-reader.onloadend = handleReaderLoadEnd;
- 
-// begin the read operation
-reader.readAsDataURL(file);
+    var file = files[0];
+
+    //document.getElementById("droplabel").innerHTML = "Processing " + file.name;
+
+    var reader = new FileReader();
+
+    // init the reader event handlers
+    if(typeof _callback == 'function')
+        reader.onloadend = handleReaderLoadEnd;
+
+    // begin the read operation
+    reader.readAsDataURL(file);
 
 }
 
@@ -114,12 +116,20 @@ function drop (evt) {
 
     // Only call the handler if 1 or more files was dropped.
     if (count > 0){
-        handleFiles(files); 
+        _callback(files); 
     }
 }
-if(typeof(window.addEventListener)  != "undefined") {
-box.addEventListener("dragenter",dragEnter,false);
-box.addEventListener("dragexit",dragExit,false);
-box.addEventListener("dragover",dragOver,false);
-box.addEventListener("drop",drop,false);
+
+function bindDragAndDrop (box,callback){
+    if(!callback) return ;
+    if(typeof(window.addEventListener)  != "undefined") {
+        box.addEventListener("dragenter",dragEnter,false);
+        box.addEventListener("dragexit",dragExit,false);
+        box.addEventListener("dragover",dragOver,false);
+        box.addEventListener("drop",drop,false);
+    }
+    _callback = callback;
 }
+if(box) 
+    bindDragAndDrop(box,handleFiles);
+

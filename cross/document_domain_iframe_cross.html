@@ -12,9 +12,11 @@
 <script type="text/javascript"> 
     document.domain = "gliese.com";
     function crossDomain() {
+
         var iframe = document.getElementById("iframe").contentWindow.$;
         iframe.get("http://php.gliese.com/php/document_domain_iframe.php",function(data){
                 document.getElementById("ajax").innerHTML = data;
+              
                 });
     }
 </script>
