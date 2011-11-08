@@ -19,3 +19,47 @@
     }
 </style>
 <script type="text/javascript" src="js/gliese.js" > </script>
+<script type="text/javascript"  >
+
+/**
+ *  demo for  preview image file
+ *
+ */ 
+var box = document.getElementById("box");
+
+function handleReaderLoadEnd(evt) {
+    if(window.console){ 
+        console.log(evt.target.result);
+    }
+    // var img = document.getElementById("preview");
+    var img = new Image();
+
+    img.src = evt.target.result;
+    box.appendChild(img);
+}
+
+
+function handleFiles(files){
+    var file = files[0];
+
+    //document.getElementById("droplabel").innerHTML = "Processing " + file.name;
+
+    var reader = new FileReader();
+
+    // init the reader event handlers
+    if(typeof _callback == 'function')
+        // reader.onloadend = _callback;
+        reader.onloadend = handleReaderLoadEnd;
+
+    // begin the read operation ; just base64 encoding
+    reader.readAsDataURL(file);
+
+}
+
+
+if(box){ 
+    dnd.bindDragAndDrop(box,handleFiles);
+}
+
+
+</script>
