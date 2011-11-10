@@ -23,7 +23,7 @@ gliese.upload = {
                             if(length == 1)
                                 var name_val = "file";
                             else 
-                                var name_var = "file[]";
+                                var name_val = "file[]";
                             var processFile = function(i,files) {
                                                            
                                 var processEvt = function (evt){
@@ -61,62 +61,54 @@ gliese.upload = {
                                         builder += boundary;
                                         builder += dashdash;
                                         builder += crlf;
+                                        headers = [];
+                                        headers["content-type"] = "multipart/form-data; boundary="+boundary;
+                                        gliese.upload.uploadFileCross(headers,builder);
 
-                                        var xhr = new XMLHttpRequest();
-                                        xhr.open("POST","http://php.gliese.com/php/upload/upload_file.php",true);
-                                       // xhr.setRequestHeader("content-type","multipart/form-data"); // echo $_REQUEST = []
-                                        xhr.setRequestHeader("content-type","multipart/form-data; boundary="+boundary); // echo $_REQUEST != [] ;
-
-                                       /**
-                                        * workaroud for Chrome's sendAsBinary 
-                                        * http://code.google.com/p/chromium/issues/detail?id=35705
-                                        *
-                                        */ 
-                                        if(typeof xhr.sendAsBinary != "function") {
-                                            XMLHttpRequest.prototype.sendAsBinary = function(datastr) {
-                                                if( typeof Uint8Array != "function" ) {
-                                                    if(window.console) console.log("Your Browser isn't support Uint8Array");
-                                                    return;
-                                                }
-                                                var ui8a = new Uint8Array(datastr.length);
-                                                var i = 0;
-                                                for(;i<datastr.length;i++) {
-                                                    ui8a[i] = (datastr.charCodeAt(i) & 0xff);
-                                                }
-                                                this.send(ui8a.buffer);
-                                            }
-                                        }
-
-
-                                        /**
-                                         *  filename cann't be chinese otherwise encodeURI the chinese word;
-                                         */ 
-                                        
-                                        xhr.sendAsBinary(builder); // keep old file encoding
-                                        /**
-                                         *  
-                                         * 1)  in php file, need to exec " iconv -f utf-8 -t latin1 工作内容.xls -o 工作内容1.xls "
-                                         * 2)  filename can be chinese
-                                         */
-
-                                        //xhr.send(builder);  // upload fileencoding  = utf-8
-
-                                        xhr.onload = function (event) {
-                                            if(xhr.responseText) {
-                                                if(window.console) console.log(xhr.responseText);
-                                            }
-                                        };
-//                                        var request =  $.ajax({
-//                                            url:"http://php.gliese.com/php/upload/upload_file.php",
-//                                            type:'POST',
-//                                            data:builder,
-//                                            beforeSend:function(xhr){
-//                                                xhr.setRequestHeader("content-type",'multipart/form-data; boundary='+boundary);
+//                                        var xhr = new XMLHttpRequest();
+//                                        xhr.open("POST","http://php.gliese.com/php/upload/upload_file.php",true);
+//                                       // xhr.setRequestHeader("content-type","multipart/form-data"); // echo $_REQUEST = []
+//                                        xhr.setRequestHeader("content-type","multipart/form-data; boundary="+boundary); // echo $_REQUEST != [] ;
+//
+//                                       /**
+//                                        * workaroud for Chrome's sendAsBinary 
+//                                        * http://code.google.com/p/chromium/issues/detail?id=35705
+//                                        *
+//                                        */ 
+//                                        if(typeof xhr.sendAsBinary != "function") {
+//                                            XMLHttpRequest.prototype.sendAsBinary = function(datastr) {
+//                                                if( typeof Uint8Array != "function" ) {
+//                                                    if(window.console) console.log("Your Browser isn't support Uint8Array");
+//                                                    return;
+//                                                }
+//                                                var ui8a = new Uint8Array(datastr.length);
+//                                                var i = 0;
+//                                                for(;i<datastr.length;i++) {
+//                                                    ui8a[i] = (datastr.charCodeAt(i) & 0xff);
+//                                                }
+//                                                this.send(ui8a.buffer);
 //                                            }
-//                                        });
-//                                        request.done(function(msg){ 
-//                                            if(window.console) console.log(msg);
-//                                        });           
+//                                        }
+//
+//
+//                                        /**
+//                                         *  filename cann't be chinese otherwise encodeURI the chinese word;
+//                                         */ 
+//                                        
+//                                        xhr.sendAsBinary(builder); // keep old file encoding
+//                                        /**
+//                                         *  
+//                                         * 1)  in php file, need to exec " iconv -f utf-8 -t latin1 工作内容.xls -o 工作内容1.xls "
+//                                         * 2)  filename can be chinese
+//                                         */
+//
+//                                        //xhr.send(builder);  // upload fileencoding  = utf-8
+//
+//                                        xhr.onload = function (event) {
+//                                            if(xhr.responseText) {
+//                                                if(window.console) console.log(xhr.responseText);
+//                                            }
+//                                        };
                                     }
                                 }
                                 var file = files[i];
@@ -129,7 +121,72 @@ gliese.upload = {
                             }
                             
                             processFile(i,files);
-                        } 
+                        },
+
+    uploadFileCross:function(headers,postData){
+                        
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST","http://php.gliese.com/php/upload/upload_file.php",true);
+                        // xhr.setRequestHeader("content-type","multipart/form-data"); // echo $_REQUEST = []
+                        //xhr.setRequestHeader("content-type","multipart/form-data; boundary="+boundary); // echo $_REQUEST != [] ;
+                        var header;
+                        for( header in headers ) {
+                            if(Object.prototype.hasOwnProperty.call(headers,header)) {
+                                xhr.setRequestHeader(header,headers[header]); // echo $_REQUEST != [] ;
+                            }
+                        }
+                        /**
+                         * workaroud for Chrome's sendAsBinary 
+                         * http://code.google.com/p/chromium/issues/detail?id=35705
+                         *
+                         */ 
+                        if(typeof xhr.sendAsBinary != "function") {
+                            XMLHttpRequest.prototype.sendAsBinary = function(datastr) {
+                                if( typeof Uint8Array != "function" ) {
+                                    if(window.console) console.log("Your Browser isn't support Uint8Array");
+                                    return;
+                                }
+                                var ui8a = new Uint8Array(datastr.length);
+                                var i = 0;
+                                for(;i<datastr.length;i++) {
+                                    ui8a[i] = (datastr.charCodeAt(i) & 0xff);
+                                }
+                                this.send(ui8a.buffer);
+                            }
+                        }
+
+
+                        /**
+                         *  filename cann't be chinese otherwise encodeURI the chinese word;
+                         */ 
+
+                        xhr.sendAsBinary(postData); // keep old file encoding
+                        /**
+                         *  
+                         * 1)  in php file, need to exec " iconv -f utf-8 -t latin1 工作内容.xls -o 工作内容1.xls "
+                         * 2)  filename can be chinese
+                         */
+
+                        //xhr.send(builder);  // upload fileencoding  = utf-8
+
+                        xhr.onload = function (event) {
+                            if(xhr.responseText) {
+                               // if(window.console) console.log(xhr.responseText);
+                               $("#uploaded").html(xhr.responseText);
+                            }
+                        };
+                        //                                        var request =  $.ajax({
+//                                            url:"http://php.gliese.com/php/upload/upload_file.php",
+//                                            type:'POST',
+//                                            data:builder,
+//                                            beforeSend:function(xhr){
+//                                                xhr.setRequestHeader("content-type",'multipart/form-data; boundary='+boundary);
+//                                            }
+//                                        });
+//                                        request.done(function(msg){ 
+//                                            if(window.console) console.log(msg);
+//                                        });           
+                    }
 };
 
 var dropbox = document.getElementById("dropbox");
