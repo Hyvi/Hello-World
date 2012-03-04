@@ -25,6 +25,7 @@ document.domain + iframe
     - <http://html5.gliese.com/cross/document_domain_iframe_cross.html>
     - <http://html5.gliese.com/cross/document_domain_iframe.html>
     - <http://php.gliese.com/php/document_domain_iframe.php>
+ * 缺点：无法实现不同主域名之间的通讯。并且当在一个页面中还包含有其它的iframe时，会产生安全性异常，拒绝访问。
 
  html5 postMessage &&  window.name 
 ===============================
