@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script type="text/javascript" src='../jquery.js' ></script>
+	<script type="text/javascript" src="name_iframe_ie.js">
+			</script>
+			<style type="text/css"> 
+				body { display : none ;}
+			</style>
+</head>
+<body>
+	<script>
+		// javascript.info/tutorial/clickjacking
+		// IE8+\chrome\firefox , "X-Frame-Options = sameorigin" workaround frame busting the browsers that support HTML5 
+		// IE8 security="restricted" 
+		// chrome sandbox = "allow-script allow-forms" but no allow-top-navigation.
+		if (window == top) {
+			// use document.getElementsByTagName('body') instead of document.body, 
+			// because the way of getting Body it works in all browsers when the document is not ready 
+			var theBody = document.getElementsByTagName("body")[0];
+			theBody.style.display = "block";
+		} else {
+			top.location = window.location;
+		}
+	</script>
+</body>
+</html>
