@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+    <h2>  built-in commands  </h2>
+    <div id='someElement'>
+        
+    </div>	
+    <h1> 通过脚本引入script到指定的dom中，导致外部的js中的document.write失效 </h1>
+    <i>其他的脚本依然有效</i>
+    <br />
+
+    <script type="text/javascript">
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'js/add.script.to.dom.js';
+        document.getElementById('someElement').appendChild(script);
+        document.write('<div> from html </div>');
+    </script>
+    
+    <h1> 通过直接引入script标签的方式来 使外部js中的document.write有效 </h1>
+    <script type="text/javascript" src='js/add.script.to.dom.js'></script>
+</body>
+</html>

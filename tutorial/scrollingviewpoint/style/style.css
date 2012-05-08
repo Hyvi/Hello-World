@@ -1,0 +1,75 @@
+#viewport
+{
+	overflow:hidden;
+	border:5px solid;
+	height:300px;
+	width:600px;
+}
+
+#scrollable
+{
+	position:relative;
+	width:2400px;
+	height:300px;
+}
+
+#content
+{
+	width:2400px;
+	height:300px;
+}
+
+#label
+{
+	position:relative;
+	width:2400px;
+	height:100px;
+	bottom:100px;
+}
+
+.label
+{
+	float:left;
+	padding:10px;
+	height:80px;
+	width:580px;
+	background-color:#777;
+	color:white;
+}
+
+.section
+{
+	float:left;
+	padding:10px;
+	width:580px;
+	height:280px;
+}
+
+#section1
+{
+	background-image:url('../image/uluru.jpg');
+}
+
+#section2
+{
+	background-image:url('../image/eiffeltower.jpg');
+}
+
+#section3
+{
+	background-image:url('../image/empirestate.jpg');
+}
+
+#section4
+{
+	background-image:url('../image/greatwall.jpg');
+}
+
+.button
+{
+	height:30px;
+	width:30px;
+	background-color:#777;
+	float:left;
+	margin:5px;
+}

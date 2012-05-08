@@ -1,3 +1,7 @@
+        /// for test window.name
+        //  permission denied
+        window.postMessage = null;
+        
         document.getElementById('host').innerHTML = location.host;
 
         function send(){
@@ -41,5 +45,7 @@
                 }
             }
             win.sendMessage = sendMessage();
+            win.name = "Hyvi";
+            window.console && console.log(win.name);
         })(window, document);
  

@@ -1,3 +1,6 @@
+// for test window.name
+window.postMessage = null;
+
 document.getElementById('host').innerHTML = location.host;
 function send(){
     var val = document.getElementById('data').value;

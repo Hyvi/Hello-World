@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <script type="text/javascript">
+    
+    
+
+        function lengthInPageEncoding(s) {
+            var a = document.createElement('A');
+            a.href = '#' + s;
+            var sEncoded = a.href;
+            sEncoded = sEncoded.substring(sEncoded.indexOf('#') + 1);
+            console.log(sEncoded);
+            var m = sEncoded.match(/%[0-9a-fA-F]{2}/g);
+            return sEncoded.length - (m ? m.length * 2 : 0);
+        }
+// diferent between chrome and firefox
+console.log(lengthInPageEncoding('好'));
+    </script>
+</head>
+<body>
+	
+</body>
+</html>
