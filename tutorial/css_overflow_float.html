@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css overflow float</title>
+</head>
+<body>
+    <style type="text/css">
+        .imgparent{ height:0px;overflow:hidden; }
+        .imgparent img{  }
+    </style>
+ <div class='imgparent'>
+    <img src="images/overflow-float.png" alt="" />
+</div>
+<style type="text/css">
+    .left{ float:left; height:100px; width:100px; }
+    .right{ float:right; height:50px; width:50px; }
+    .parent div{ background-color:#CAD5DA; }
+    .parent{ background-color:#7A79B9; padding:5px; overflow:hidden; }
+    .clear{ clear:both; }
+</style>
+<div class='parent'>
+	<div class='left'></div>
+	<div class='right'></div>
+</div>
+
+tutorial for overflow : <a href="http://css-tricks.com/the-css-overflow-property/">css overflow property</a>
+
+problem of overflow hidden in order to clear children element's float
+<a href="http://www.impressivewebs.com/overflow-hidden-problem/">A Problem With Using “overflow: hidden” to Clear Floats</a>
+clear float ways on quirksmode : 
+<a href="http://www.quirksmode.org/css/clearing.html">link...</a>
+
+Further Reading 
+<a href="http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified/">YuiBlog:clearfix Reloaded + overflow:hidden Demystified </a>
+</body>
+</html>

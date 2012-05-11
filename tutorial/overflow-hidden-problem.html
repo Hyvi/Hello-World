@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>A Problem With "overflow: hidden" &#151; Demo Page</title>
+<style type="text/css">
+html,body,div,span,
+applet,object,iframe,code,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,
+del,dfn,font,img,ins,kbd,q,s,samp,
+small,strike,sub,sup,tt,var,
+dd,dl,dt,li,ol,ul,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: normal;
+    font-style: normal;
+    font-family: inherit;
+    text-align: left;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+ol,ul {
+    list-style: none;
+}
+q:before,q:after,
+blockquote:before,blockquote:after {
+    content: "";
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: #efefef;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #555555;
+    margin: auto;
+}
+
+a, a:link, a:visited {
+    color: #3381d6;
+}
+
+a:hover, a:active, a:focus {
+    color: #e06c1f;
+}
+
+/* LINK SYTLES END HERE */
+
+#container {
+    border: solid 5px black;
+        /**min-width: 960px;**/
+}
+
+    #content {
+        margin: 0 auto;
+        background: #00467f ;
+        padding: 40px 0 0 0;
+        min-width: 960px;
+        float: left;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #fff;
+        line-height: 40px;
+        width: 600px;
+        margin: 0 auto;
+        padding: 0 0 50px 0;
+    }
+    
+    p {
+        padding: 30px 0 0 0;
+        text-align: center;
+    }
+    
+    p.big {
+        font-size: 18px;
+    }
+    
+    p.explain {
+        width: 600px;
+        font-size: 18px;
+        margin: 0 auto;
+        line-height: 23px;
+    }
+    
+    #text {
+        clear: left;
+    }
+</style>
+</head>
+    
+<body class="home blog logged-in">
+
+<div id="container">
+
+    <div id="content">
+    <h1>This blue header area has a set width of 960px, is floated left, requiring a "clearfix" on the container.</h1>
+    
+    <h1>If you resize your browser window so that it's smaller than 960px, you should see a horizontal scrollbar appear on the window.</h1>
+    
+    </div><!-- #content -->
+    
+</div><!-- #container -->
+    
+    <div id="text">
+    <p class="big">Use the link below to toggle <code>overflow: hidden</code> on the container element:</p>
+    
+    <p class="big"><a href="#" id="add_overflow" style="text-decoration: none; border: solid 1px; padding: 4px;">Click to Add "overflow: hidden"</a></p>
+
+    <p class="explain">After you add <code>overflow: hidden</code>, you'll notice the container (which has an exaggerated 5px border) expands to properly contain the floated child element. But then the horizontal scrollbar on the browser window disappears, and some of the header content may be cut off and inaccessible. Your window must be smaller than 960px in order to see this problem.</p>
+    </div>
+</body>
+<script type="text/javascript">
+function changeOverflow () { 
+    var myButton = document.getElementById("add_overflow");
+    var myContainer = document.getElementById("container");
+    myButton.onclick = function() {
+        if (myContainer.style.overflow !== "hidden") {
+            document.getElementById("container").style.overflow = "hidden";
+            myButton.innerHTML = 'Click to Remove "overflow: hidden"';
+        } else {
+            document.getElementById("container").style.overflow = "visible";
+            myButton.innerHTML = 'Click to Add "overflow: hidden"';
+        }
+        return false;
+    };
+}
+addLoadListener(changeOverflow);function addLoadListener(fn){if(typeof window.addEventListener!='undefined'){window.addEventListener('load',fn,false);}else if(typeof document.addEventListener!='undefined'){document.addEventListener('load',fn,false);}else if(typeof window.attachEvent!='undefined'){window.attachEvent('onload',fn);}else{var oldfn=window.onload;if(typeof window.onload!='function'){window.onload=fn;}else{window.onload=function(){oldfn();fn();};}}}
+</script>
+
+</html>
