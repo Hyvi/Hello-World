@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>preventDefault example</title>
+</head>
+
+<body>
+
+<p>Please click on the checkbox control.</p>
+
+<form>
+<input type="checkbox" id="my-checkbox" />
+<label for="checkbox">Checkbox</label>
+
+</form>
+<p>Please enter your name using lowercase letters only. </p>
+<form action="">
+	<input type="text" id='my-textbox' />
+</form>
+<p>ref:</p>
+see : evernote 
+
+<script>
+    function checkName(evt) {
+        var charCode = evt.charCode;
+
+        if (charCode != 0) {
+            if (charCode < 97 || charCode > 122) {
+                evt.preventDefault();
+                alert("Please use lowercase letters only." + "\n"
+                    + "charCode: " + charCode + "\n"
+                );
+            }
+        }
+    }
+    
+    document.getElementById('my-textbox').addEventListener(
+        'keypress', checkName, false
+    );
+</script>
+<script>
+    function stopDefAction(evt) {
+        evt.preventDefault();
+    }
+    
+    document.getElementById('my-checkbox').addEventListener(
+        'click', stopDefAction, false
+    );
+</script>
+
+</body>
+</html>
