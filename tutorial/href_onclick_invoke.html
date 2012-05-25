@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+</head>
+<body>
+    <script type="text/javascript">
+        function href()  {
+            window.console && console.log('from href');
+        }
+        function click(e){ // 
+            var event = e || window.event;
+            //event.preventDefault();
+            window.console && console.log("from click");
+            return false;
+        }
+        function _click(e){
+            var event = e || window.event;
+            //event.preventDefault();
+            window.console && console.log("from click");
+            return false;
+        }
+        function doSomething(){
+            console.log('something done');
+        }
+
+        // http://www.zhihu.com/question/20258201
+        //var va;
+        var va = null;
+        //var va = 'xxxx';
+        try{
+            // 已经申明
+            // 判断是否已经定义
+            if (va === undefined){ // 不能使用 ==，因为当 "var va = null;"时 被判定为未定义是错误的。
+            //if (typeof  va === 'undefined'){
+                // 未定义
+                window.console && console.log("变量未定义.");
+            }else {
+                // 已经定义了，可能未null 
+                window.console && console.log("变量已定义.");
+            }
+        } catch(e){
+            // va 未申明
+            window.console && console.log("变量未申明，");
+        }
+    </script>
+    <h3>
+     为什么跟click名称有关系。 
+     http://www.zhihu.com/question/20258381
+    </h3>
+	<a href="javascript:href();" onclick="_click(event);">Click me and see console</a>
+    <a href="#" onclick="doSomething(); return false;">go</a>
+</body>
+</html>
