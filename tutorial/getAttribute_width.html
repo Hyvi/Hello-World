@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <script type="text/javascript" src="http://gliese.com/jquery/dist/jquery.js"></script>
+</head>
+<body>
+<a href="http://www.quirksmode.org/dom/w3c_core.html#t10">W3C DOM Compatibility - Core</a>
+
+<h4>GetAttribute </h4>
+
+Browser version : <span id="version" > </span> <br />
+code : <span> </span> <br />
+result : <span id='result'> </span> , expected : 100 <br />
+Other: <span id='other'> </span>
+
+<script type="text/javascript">
+$("#version").text(window.navigator.userAgent);
+var imgsrc = '<div><img width="100" ></img><span> </span></div>';
+var img = $(imgsrc).find('img');
+for (var i = 0; i < img.length; i++) {
+    var item = img[i];
+    var result = item.getAttribute("width") || item.getAttribute('width',2);
+    $("#result").text(result+";typeof " + typeof(result));
+    $("#other").append("getAttributeNode('width').name:"+item.getAttributeNode('width').name+":"+item.getAttributeNode('width').value) 
+        .append("<br />")
+        .append("css.widht:" + item.style.width)
+        .append("<br />")
+        .append("jquery 1.7.2 attr('width') : " + $(item).attr('width'));
+}
+</script>	
+<h4>Specified property</h4>
+
+<script>
+function fnFindSpecified(){
+   var oAttributes=document.getElementById("oList").attributes;
+   alert(oAttributes[0].nodeName);
+   for(var i=0;i<oAttributes.length;i++){
+      var oNode=document.createElement("LI");
+      var oNodeValue=document.createTextNode(i + " "
+                     + oAttributes[i].nodeName + " = "
+                     + oAttributes[i].nodeValue);
+      oList.appendChild(oNode);
+      oNode.appendChild(oNodeValue);
+      if(oAttributes[i].nodeValue!=null){
+         alert(oAttributes[i].nodeName
+         + " specified: " + oAttributes[i].specified);
+      }
+   }
+}
+</script>
+<ul id="oList"  width='500' onclick= "fnFindSpecified()">
+<li>Click to Find Specified Attributes</li>
+</ul>
+
+</body>
+</html>
