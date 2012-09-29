@@ -23,5 +23,28 @@
     
     <h1> 通过直接引入script标签的方式来 使外部js中的document.write有效 </h1>
     <script type="text/javascript" src='js/add.script.to.dom.js'></script>
+    <h1>Jquery .append()方法 与 javascript appendChild()区别</h1>
+    <a href="http://stackoverflow.com/questions/610995/jquery-cant-append-script-element">http://stackoverflow.com/questions/610995/jquery-cant-append-script-element</a>
+<pre>
+function AddScript(url, object){
+    if (object != null){
+        // add script
+        var script   = document.createElement("script");
+        script.type  = "text/javascript";
+        script.src   = "path/to/your/javascript.js";
+        document.body.appendChild(script);
+
+        // remove from the dom
+        document.body.removeChild(document.body.lastChild);
+        return true;
+    } else {
+        return false;
+    };
+};
+
+function DeleteObject(UnusedReferencedObjects) {
+    delete UnusedReferencedObjects;
+}
+</pre>
 </body>
 </html>
