@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<script> 
+    var foo = 'BAB'; 
+    with({'window':{},'this':{}}) {
+        var s = 'console.log(i++,window.foo);',
+            e = eval,
+            globals = eval('this;'),
+            i = 0;
+        console.log(i++,window.foo);
+        eval(s);
+        (1,eval)(s);
+        e(s);
+        console.log(i++,globals.foo);
+        !new Function(s)();
+    }
+</script>	
+</body>
+</html>
