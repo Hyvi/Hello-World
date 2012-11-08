@@ -1,0 +1,46 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script type="text/javascript">
+      s_time = +new Date;
+    </script>
+</head>
+<body>
+
+<img src="http://1.cuzillion.com/bin/resource.cgi?type=gif&sleep=2&n=1&t=1328187796" />
+<img src="http://1.cuzillion.com/bin/resource.cgi?type=gif&sleep=2&n=2&t=1328187796" />
+<img src="http://1.cuzillion.com/bin/resource.cgi?type=gif&sleep=2&n=3&t=1328187796" />
+
+  <button id="bn">button</button>
+  <script type="text/javascript">
+    document.getElementById('bn').onclick = function() {
+      alert(1);
+    }
+    document.body.appendChild(document.createTextNode(+new Date - s_time + 'ms'));
+  </script>
+<!--
+<script type="text/javascript" src="http://1.cuzillion.com/bin/resource.cgi?type=js&sleep=8&jsdelay=5&n=1&t=1328187385"></script>
+-->
+
+    <script type="text/javascript">
+      //window.onload = function(){
+     var injs_now = Number(new Date()); while( injs_now + (5*1000) > Number(new Date()) ) { var tmp = injs_now; }
+      //};
+    </script>
+
+<br />
+</br />
+js与css的顺序 
+</body>
+</html>
+<!--
+1, http://hikejun.com/blog/2012/02/02/js%E5%92%8Ccss%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%85%B3%E7%B3%BB/
+   4.内联长执行时间js，无论放在页面任何位置，都会影响整个页面的渲染。
+2, http://lifesinger.wordpress.com/2012/02/03/performance-impact-of-js-css-loading-order/ 
+    定律一：资源是否下载依赖 JS 执行结果。
+    定律二：JS 执行依赖 CSS 最新渲染。
+    定律三：现代浏览器存在 prefetch 优化
+-->
