@@ -1,0 +1,18 @@
+{
+  "author": "hyvi tan",
+  "name": "nodejs-algorithm",
+  "description": "algorithm study , using nodejs",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Hyvi/Hello-World.git"
+  },
+  "engines": {
+    "node": "~0.6.15"
+  },
+  "dependencies": {},
+  "devDependencies": {
+      "line-reader" : ">=0.2.3"
+  }
+}
+
