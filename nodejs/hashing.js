@@ -10,20 +10,21 @@ var fs = require('fs');
 var os = require('os');
 var linereader = require('line-reader');
 var path  =  "/usr/local/NSP/var/log/nginx/access.log";
-// out of memory 
+
 /** 
-    console.time('readbigfile');
-    fs.readFile(path,'utf-8',function(err,data){
-        if(err){
-          return console.log(err);
-        }
-        console.timeEnd('readbigfile');
-        console.log(data);
-    });
-**/
+// out of memory 
+console.time('readbigfile');
+fs.readFile(path,'utf-8',function(err,data){
+    if(err){
+      return console.log(err);
+    }
+    console.timeEnd('readbigfile');
+    console.log(data);
+});
 
 // use buffer 
-/** 自己实现复杂了。
+// http://docs.nodejitsu.com/articles/advanced/buffers/how-to-use-buffers
+// 自己实现复杂了。
 fs.open(path, 'r', function(err,fd){
    if(!err){
     // read  file
@@ -42,29 +43,29 @@ fs.open(path, 'r', function(err,fd){
 
 console.time('rdf');
 var obj = {}; // 存储各种ip , key为ip,value为该ip出现的次数
-     linereader.eachLine(path,function(line,last){
-         //console.log(line.toString());
-         var ip = line.toString().split(" ")[0];
-         if(obj[ip]){
-            obj[ip] = obj[ip]+1;
-         }else{
-             obj[ip] =1;
-         }
-         if(last){
-             // 对obj里面的ip进行排序，找出最大值
-             var maxip;
-             var preMax = 0;
-             for (var i in obj ){
-                 if(obj.hasOwnProperty(i)){ 
-                     if(obj[i] > preMax){
-                         maxip = i;
-                         preMax = obj[maxip];
-                     }  
-                 }
-             }
-             console.log(maxip);
-             console.timeEnd('rdf');
+linereader.eachLine(path,function(line,last){
+    //console.log(line.toString());
+    var ip = line.toString().split(" ")[0];
+    if(obj[ip]){
+        obj[ip] = obj[ip]+1;
+    }else{
+        obj[ip] =1;
+    }
+    if(last){
+        // 对obj里面的ip进行排序，找出最大值
+        var maxip;
+        var preMax = 0;
+        for (var i in obj ){
+            if(obj.hasOwnProperty(i)){ 
+                if(obj[i] > preMax){
+                    maxip = i;
+                    preMax = obj[maxip];
+                }  
+            }
+        }
+        console.log(maxip);
+        console.timeEnd('rdf');
 
-         }
-     });
-    
+    }
+});
+
