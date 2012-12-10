@@ -1,0 +1,23 @@
+<!-- 
+http://www.w3.org/TR/CSS21/box.html#collapsing-margins
+In CSS, the adjoining margins of two or more boxes (which might or might not be siblings) can combine to form a single margin. Margins that combine this way are said to collapse, and the resulting combined margin is called a collapsed margin.
+Adjoining vertical margins collapse, except:
+    Margins of the root element's box do not collapse.
+    If the top and bottom margins of an element with clearance are adjoining, its margins collapse with the adjoining margins of following siblings but that resulting margin does not collapse with the bottom margin of the parent block.
+Horizontal margins never collapse.
+-->
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>margin Collapse</title>
+</head>
+<body>
+<div style='background-color:red;width:200px'>
+    <div style='background-color:yellow;height:50px;width:200px;margin-bottom:50px'></div>
+    <div style='background-color:blue; height:50px;width:200px; margin-top:20px'>
+        <p style="margin-top:30px;background:green;" ></p> 
+    </div>
+</div>	
+</body>
+</html>
